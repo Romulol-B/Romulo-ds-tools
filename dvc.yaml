@@ -1,0 +1,35 @@
+stages:
+  validate:
+    cmd: romds validate --config conf/config.yaml
+    deps:
+      - conf/config.yaml
+      - project/schema.py
+      - src/romulo_ds_tools
+    outs:
+      - reports/validation.json
+  profile:
+    cmd: romds profile --config conf/config.yaml
+    deps:
+      - conf/config.yaml
+      - src/romulo_ds_tools
+    outs:
+      - reports/profile.json
+      - reports/missingness.html
+  train:
+    cmd: romds train --config conf/config.yaml
+    deps:
+      - conf/config.yaml
+      - project
+      - src/romulo_ds_tools
+    outs:
+      - models/model.joblib
+      - reports/metrics.json
+      - reports/predictions.csv
+  evaluate:
+    cmd: romds evaluate --config conf/config.yaml
+    deps:
+      - conf/config.yaml
+      - models/model.joblib
+      - reports/predictions.csv
+    outs:
+      - reports/evaluation.json
