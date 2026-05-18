@@ -6,13 +6,13 @@ from romulo_ds_tools.cli import app
 from romulo_ds_tools.tracking import config_to_yaml
 
 
-def test_cli_validate_command_writes_validation_report(
-    tmp_path, classification_frame, config_factory
-):
+def test_cli_validate_command_writes_validation_report(tmp_path, prostate_frame, config_factory):
     data_path = tmp_path / "train.csv"
     config_path = tmp_path / "config.yaml"
-    classification_frame.to_csv(data_path, index=False)
+    prostate_frame.to_csv(data_path, index=False)
     cfg = config_factory(data_path)
+    cfg.validation.enabled = True
+    cfg.data.target = "diagnosis_result"
     config_path.write_text(config_to_yaml(cfg), encoding="utf-8")
 
     result = CliRunner().invoke(app, ["validate", "--config", str(config_path)])

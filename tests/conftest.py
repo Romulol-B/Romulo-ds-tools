@@ -1,10 +1,17 @@
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
-import pandas as pd
-import pytest
-from omegaconf import OmegaConf
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+for candidate in (PROJECT_ROOT, PROJECT_ROOT / "src"):
+    candidate_text = str(candidate)
+    if candidate_text not in sys.path:
+        sys.path.insert(0, candidate_text)
+
+import pandas as pd  # noqa: E402
+import pytest  # noqa: E402
+from omegaconf import OmegaConf  # noqa: E402
 
 
 @pytest.fixture()
@@ -41,6 +48,24 @@ def time_series_frame() -> pd.DataFrame:
     )
 
 
+@pytest.fixture()
+def prostate_frame() -> pd.DataFrame:
+    return pd.DataFrame(
+        {
+            "id": [1, 2, 3, 4],
+            "diagnosis_result": ["M", "B", "M", "B"],
+            "radius": [23, 9, 21, 14],
+            "texture": [12, 13, 27, 16],
+            "perimeter": [151, 133, 130, 78],
+            "area": [954, 1326, 1203, 386],
+            "smoothness": [0.143, 0.143, 0.125, 0.07],
+            "compactness": [0.278, 0.079, 0.16, 0.284],
+            "symmetry": [0.242, 0.181, 0.207, 0.26],
+            "fractal_dimension": [0.079, 0.057, 0.06, 0.097],
+        }
+    )
+
+
 def make_config(
     tmp_path: Path,
     data_path: Path,
@@ -61,7 +86,7 @@ def make_config(
                 "model_path": str(tmp_path / "models" / "model.joblib"),
             },
             "validation": {
-                "enabled": True,
+                "enabled": False,
                 "schema_module": "project.schema",
                 "output_path": str(tmp_path / "reports" / "validation.json"),
             },

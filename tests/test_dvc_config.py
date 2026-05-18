@@ -10,4 +10,5 @@ def test_dvc_yaml_declares_core_stages():
     assert "profile:" in text
     assert "train:" in text
     assert "evaluate:" in text
+    assert "reports/nursery_v1/eda" in text
     assert "romds train --config conf/config.yaml" in text
