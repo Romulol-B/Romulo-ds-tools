@@ -65,6 +65,16 @@ romds evaluate --dataset my_dataset
 
 After step 2, review `project/schemas/my_dataset.py`. The generated schema is a starting point; tighten it as you learn the dataset. Outputs will be isolated under `reports/my_dataset_v1/` and `models/my_dataset_v1/`.
 
+To remove generated reports for a dataset without touching `data/raw/`, use:
+
+```powershell
+# Dry run: shows what would be deleted
+romds datasets delete my_dataset
+
+# Confirm deletion
+romds datasets delete my_dataset --yes
+```
+
 Override config values from the CLI:
 
 ```powershell
