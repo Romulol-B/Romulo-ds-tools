@@ -1,0 +1,16 @@
+data:
+  problem_type: regression
+  time_column: date
+
+features:
+  time_series:
+    enabled: true
+    group_columns: []
+    lags: [1, 2, 7]
+    rolling_windows: [3, 7]
+
+model:
+  name: random_forest_regressor
+  params:
+    n_estimators: 100
+    random_state: 42

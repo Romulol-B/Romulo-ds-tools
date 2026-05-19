@@ -1,0 +1,26 @@
+extends: ../base.yaml
+
+project_name: student_performace-v1
+
+paths:
+  data: data/raw/hybrid_student_performance_1200.csv
+  reports_dir: reports/student_performace_v1
+  model_dir: models/student_performace_v1
+  model_path: models/student_performace_v1/model.joblib
+
+validation:
+  schema_module: project.schemas.student_performace
+  output_path: reports/student_performace_v1/validation.json
+
+data:
+  target: 'cgpa_category'
+  problem_type: classification
+  id_columns: []
+
+tracking:
+  run_name: student_performace_baseline
+
+visualization:
+  output_dir: reports/student_performace_v1/eda
+  pairplot:
+    color_column: 'cgpa_category'

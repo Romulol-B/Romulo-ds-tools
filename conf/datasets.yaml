@@ -1,0 +1,8 @@
+active: student_performace
+datasets:
+  nursery:
+    config: nursery_v1/nursery_01.yaml
+  prostate:
+    config: prostate_v1/prostate_01.yaml
+  student_performace:
+    config: student_performace_v1/student_performace_01.yaml

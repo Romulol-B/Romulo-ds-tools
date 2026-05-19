@@ -1,0 +1,37 @@
+stages:
+  validate:
+    cmd: romds validate --config conf/config.yaml
+    deps:
+      - conf
+      - project
+      - src/romulo_ds_tools
+    outs:
+      - reports/nursery_v1/validation.json
+  profile:
+    cmd: romds profile --config conf/config.yaml
+    deps:
+      - conf
+      - project
+      - src/romulo_ds_tools
+    outs:
+      - reports/nursery_v1/profile.json
+      - reports/nursery_v1/missingness.html
+      - reports/nursery_v1/eda
+  train:
+    cmd: romds train --config conf/config.yaml
+    deps:
+      - conf
+      - project
+      - src/romulo_ds_tools
+    outs:
+      - models/nursery_v1/model.joblib
+      - reports/nursery_v1/metrics.json
+      - reports/nursery_v1/predictions.csv
+  evaluate:
+    cmd: romds evaluate --config conf/config.yaml
+    deps:
+      - conf
+      - models/nursery_v1/model.joblib
+      - reports/nursery_v1/predictions.csv
+    outs:
+      - reports/nursery_v1/evaluation.json

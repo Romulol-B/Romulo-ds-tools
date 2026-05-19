@@ -1,0 +1,62 @@
+project_name: romulo-ds-tools-project
+
+paths:
+  artifacts_dir: artifacts
+  reports_dir: reports
+  model_dir: models
+  model_path: models/model.joblib
+
+validation:
+  enabled: true
+  output_path: reports/validation.json
+
+data:
+  problem_type: classification
+  time_column: null
+  feature_columns: null
+  exclude_columns: []
+  id_columns: []
+  test_size: 0.2
+
+features:
+  time_series:
+    enabled: false
+    group_columns: []
+    lags: [1, 2, 7]
+    rolling_windows: [3, 7]
+
+model:
+  name: random_forest_classifier
+  params:
+    n_estimators: 50
+    random_state: 42
+
+training:
+  random_state: 42
+  drop_rows_with_missing_target: true
+  drop_rows_with_missing_features: true
+
+tracking:
+  enabled: true
+  mlflow_tracking_uri: file:./mlruns
+  experiment_name: romulo-ds-tools
+  run_name: baseline
+
+visualization:
+  enabled: true
+  output_dir: reports/eda
+  columns: null
+  exclude_columns: []
+  include_target: false
+  boxplots:
+    enabled: true
+  heatmap:
+    enabled: true
+  pairplot:
+    enabled: true
+    max_features: 6
+    color_column: null
+
+dashboard:
+  host: 127.0.0.1
+  port: 8050
